@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule, MongooseModuleFactoryOptions } from '@nestjs/mongoose';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
@@ -14,7 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: async (
         configService: ConfigService,
-      ): Promise<MongooseModuleFactoryOptions> => {
+      ): Promise<MongooseModuleOptions> => {
         return {
           uri: configService.get<string>('MONGODB_URI'),
           retryWrites: true,

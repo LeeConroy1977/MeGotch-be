@@ -14,9 +14,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: async (
         configService: ConfigService,
-      ): Promise<MongooseModuleFactoryOptions> => ({
-        uri: configService.get<string>('MONGODB_URI'),
-      }),
+      ): Promise<MongooseModuleFactoryOptions> => {
+        return {
+          uri: configService.get<string>('MONGODB_URI'),
+          retryWrites: true,
+          w: 'majority',
+        };
+      },
       inject: [ConfigService],
     }),
     UsersModule,

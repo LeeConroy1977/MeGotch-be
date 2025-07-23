@@ -19,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           uri: configService.get<string>('MONGODB_URI'),
           retryWrites: true,
           w: 'majority',
-        };
+        } as MongooseModuleOptions;
       },
       inject: [ConfigService],
     }),
